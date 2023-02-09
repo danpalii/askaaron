@@ -63,12 +63,15 @@ def login(request):
         # if form.is_valid():
         email = request.POST['email']
         password = request.POST['password']
-        user = auth.authenticate(email=email, password=password)
-        if user and user.is_active:
-            auth.login(request, user)
-            return HttpResponseRedirect(reverse('ask_chat:ask_anything'))
+        if not User.objects.filter(email=email).exists():
+            messages.error(request, 'Email or Password Is Not Correct')
         else:
-            return HttpResponseRedirect(reverse('user:login'))
+            user = auth.authenticate(email=email, password=password)
+            if user and user.is_active:
+                auth.login(request, user)
+                return HttpResponseRedirect(reverse('ask_chat:ask_anything'))
+            else:
+                return HttpResponseRedirect(reverse('user:login'))
     else:
         form = UserLoginForm()
     context = {'form': form}
@@ -77,8 +80,6 @@ def login(request):
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
-        print(form.is_valid())
-        print(form.errors)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
@@ -87,6 +88,10 @@ def register(request):
             user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
             return redirect('user:login')
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+
     else:
         form = UserRegistrationForm()
     context = {'form': form}
