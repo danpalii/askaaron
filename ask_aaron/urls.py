@@ -43,8 +43,7 @@ urlpatterns = [
          name='password_reset_complete'),
 
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 handler404 = 'user.views.custom_page_not_found_view'
 # handler500 = 'my_app_name.views.custom_error_view'

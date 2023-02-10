@@ -38,12 +38,13 @@ class GPTChatView(TemplateView):
             answer = request.POST.get('answer')
             try:
                 if(context_present == "YES"):
+                    # prompt = f"{answer}USER: {question}"
                     prompt = f"{question}"
                     response = getCHAT(prompt, temperature)
                     dialog = response.strip()
                     self.form = ChatForm({
                         'answer': f"{prompt}",
-                        'response':f"{dialog}\n",
+                        'response': f"{dialog}",
                         'context': context,
                         'temperature': temperature,
                     })
@@ -58,7 +59,7 @@ class GPTChatView(TemplateView):
                         'context':context,
                         'temperature':temperature
                     })
-                    context['api_response'] = f"AARON: {response}"
+                    context['api_response'] = response
 #     openai.error.RateLimitError: The server had an error while processing your request. Sorry about that!
 #             openai.error.ServiceUnavailableError: The server is overloaded or not ready yet.
             except openai.error.RateLimitError:

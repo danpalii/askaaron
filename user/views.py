@@ -11,9 +11,12 @@ from django.core.mail import EmailMessage, send_mail
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetConfirmView
 
+# from django.contrib.sites.models import Site
+
 from django.db.models.query_utils import Q
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import FormView, PasswordContextMixin
+from decouple import config
 
 from .tokens import account_activation_token
 from user.models import User
@@ -39,20 +42,26 @@ def activate(request, uidb64, token):
 
 def activateEmail(request, user, to_email):
     # user = User.objects.get(email=to_email)
-    mail_subject = "Activate your user account."
-    message = render_to_string("user/template_activate_account.html", {
-        'user': user.full_name,
-        'domain': get_current_site(request).domain,
+
+    subject = 'Activate your user account.'
+    email_template_name = 'user/template_activate_account.html'
+
+    cont = {
+        'email': user.email,
+        # 'domain': get_current_site(request).domain,
+        'domain': config('PRIMARY_DOMAIN'),
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': account_activation_token.make_token(user),
+        'user': user,
+        'token': default_token_generator.make_token(user),
         'protocol': 'https' if request.is_secure() else 'http'
-    })
-    email = EmailMessage(mail_subject, message, to=[to_email])
-    if email.send():
+    }
+    msg_html = render_to_string(email_template_name, cont)
+    try:
+        send_mail(subject, 'Link', 'noreply@askaaron.app', [user.email], fail_silently=True, html_message=msg_html)
         messages.success(request, f'Dear {user.full_name}, please go to you email {to_email} inbox and click on '
-            f'received activation link to confirme and complete the registration. Note: Check your spam folder.')
-    else:
-        message.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
+                                  f'received activation link to confirme and complete the registration. Note: Check your spam folder.')
+    except Exception:
+        messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
 
 def login(request):
     user = request.user
@@ -114,13 +123,15 @@ def password_reset_request(request):
             if user:
                 subject = 'Request reset password'
                 email_template_name = 'user/reset_password_email.html'
+
                 cont = {
                     'email': user.email,
-                    'domain': get_current_site(request).domain,
+                    # 'domain': get_current_site(request).domain,
+                    'domain': config('PRIMARY_DOMAIN'),
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'user': user,
                     'token': default_token_generator.make_token(user),
-                    'protocol': 'http',
+                    'protocol': 'https' if request.is_secure() else 'http'
                 }
                 msg_html = render_to_string(email_template_name, cont)
                 try:

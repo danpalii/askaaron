@@ -1,3 +1,29 @@
+/*@font-face {*/
+/*  font-family: 'AktivGrotesk';*/
+/*  src: url(../fonts/AktivGrotesk-Black.otf), weight:black;*/
+/*  src: url(../fonts/AktivGrotesk-BlackItalic.otf), weight:blackitalic;*/
+/*  src: url(../fonts/AktivGrotesk-Bold.otf), weight:bold;*/
+/*  src: url(../fonts/AktivGrotesk-BoldItalic.otf), weight:bolditalic;*/
+/*  src: url(../fonts/AktivGrotesk-Hairline.otf), weight:hairline;*/
+/*  src: url(../fonts/AktivGrotesk-HairlineItalic.otf), weight:hairlineitalic;*/
+/*  src: url(../fonts/AktivGrotesk-Italic.otf), weight:italic;*/
+/*  src: url(../fonts/AktivGrotesk-Light.otf), weight:light;*/
+/*  src: url(../fonts/AktivGrotesk-LightItalic.otf), weight:lightitalic;*/
+/*  src: url(../fonts/AktivGrotesk-Medium.otf), weight:medium;*/
+/*  src: url(../fonts/AktivGrotesk-MediumItalic.otf), weight:mediumitalic;*/
+/*  src: url(../fonts/AktivGrotesk-Regular.otf), weight:regular;*/
+/*  src: url(../fonts/AktivGrotesk-Thin.otf), weight:thin;*/
+/*  src: url(../fonts/AktivGrotesk-ThinItalic.otf), weight:thinitalic;*/
+/*  src: url(../fonts/AktivGrotesk-XBold.otf), weight:xbold;*/
+/*  src: url(../fonts/AktivGrotesk-XBoldItalic.otf), weight:xbolditalic;*/
+
+/*}*/
+
+/*:root {*/
+/*  --main-font: 'AktivGrotesk', sans-serif;*/
+/*}*/
+
+
 .w-layout-grid {
   display: -ms-grid;
   display: grid;
@@ -87,7 +113,7 @@ p {
   border-color: #e0e0e0;
   border-radius: 6px;
   background-color: #fff;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   color: #6e6e6e;
   font-size: 14px;
   font-weight: 300;
@@ -116,7 +142,7 @@ p {
 
 .nav-link {
   padding-top: 14px;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   color: #fff;
   font-size: 16px;
   font-weight: 300;
@@ -147,7 +173,7 @@ p {
   border-color: #e0e0e0;
   border-radius: 6px;
   background-color: #fff;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.8px;
@@ -164,7 +190,7 @@ p {
   border-color: #e0e0e0;
   border-radius: 6px;
   background-color: #fff;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   color: #000;
   font-size: 14px;
   font-weight: 300;
@@ -178,7 +204,7 @@ p {
   padding-left: 0px;
   border-radius: 6px;
   background-color: #ff6464;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 1px;
@@ -199,7 +225,7 @@ p {
 
 .text-block-2 {
   padding-top: 0px;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   color: #fff;
   font-size: 24px;
   line-height: 32px;
@@ -247,7 +273,7 @@ p {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
 }
 
 .utility-page-content {
@@ -287,7 +313,7 @@ p {
 }
 
 .heading-2 {
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-weight: 400;
 }
 
@@ -298,7 +324,7 @@ p {
 }
 
 .list-item {
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-weight: 300;
   letter-spacing: 0.5px;
 }
@@ -325,7 +351,7 @@ p {
 }
 
 .text-footer {
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   color: #545974;
   font-size: 12px;
   font-weight: 300;
@@ -373,7 +399,7 @@ p {
 
 .body-2 {
   background-color: #545974;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-weight: 300;
 }
 
@@ -419,7 +445,7 @@ p {
 }
 
 .heading-3 {
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   color: #dadada;
   font-size: 30px;
   line-height: 38px;
@@ -435,7 +461,7 @@ p {
 
 .text-field-imput {
   margin-bottom: 20px;
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-weight: 300;
   letter-spacing: 0.5px;
 }
@@ -634,7 +660,7 @@ p {
 }
 
 .rich-text-block {
-  font-family: Oswald, sans-serif;
+  font-family: AktivGrotesk, sans-serif;
   font-size: 18px;
   line-height: 26px;
   font-weight: 300;
@@ -664,7 +690,7 @@ p {
 
 @media screen and (max-width: 991px) {
   .section {
-    font-family: Oswald, sans-serif;
+    font-family: AktivGrotesk, sans-serif;
     font-weight: 300;
   }
 

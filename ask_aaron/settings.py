@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [config('PRIMARY_DOMAIN'), config('SECONDARY_DOMAIN')]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'ask_aaron.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-ATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config('DATABASE_NAME'),
@@ -86,6 +87,13 @@ ATABASES = {
         'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -125,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'ask_chat/static')
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static"),
 # ]
@@ -136,7 +144,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_FROM = 'noreply@askaaron.app'
 EMAIL_HOST_USER = 'noreply@askaaron.app'
-# EMAIL_HOST_PASSWORD = '32b12f52379e578817c5e5d9b5a4db22-75cd784d-d4a95b24'
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
