@@ -27,12 +27,10 @@ def activate(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except:
         user = None
-
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
 
-        print(user.is_active)
         messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
         return redirect('user:login')
     else:
@@ -52,7 +50,7 @@ def activateEmail(request, user, to_email):
         'domain': config('PRIMARY_DOMAIN'),
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'user': user,
-        'token': default_token_generator.make_token(user),
+        'token': account_activation_token.make_token(user),
         'protocol': 'https' if request.is_secure() else 'http'
     }
     msg_html = render_to_string(email_template_name, cont)

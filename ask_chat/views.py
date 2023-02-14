@@ -37,14 +37,13 @@ class GPTChatView(TemplateView):
             question = request.POST.get('question')
             answer = request.POST.get('answer')
             try:
-                if(context_present == "YES"):
-                    # prompt = f"{answer}USER: {question}"
-                    prompt = f"{question}"
+                if context_present == "YES":
+                    prompt = f"{answer}USER: {question}"
+                    # prompt = f"{question}"
                     response = getCHAT(prompt, temperature)
                     dialog = response.strip()
                     self.form = ChatForm({
-                        'answer': f"{prompt}",
-                        'response': f"{dialog}",
+                        'answer': f"{prompt}\nAI:{dialog}\n",
                         'context': context,
                         'temperature': temperature,
                     })
@@ -55,22 +54,21 @@ class GPTChatView(TemplateView):
                     response = getCHAT(prompt, temperature)
                     dialog = response.strip()
                     self.form = ChatForm({
-                        'answer' :f"AARON: {dialog}",
-                        'context':context,
-                        'temperature':temperature
+                        'answer': f"AI: {dialog}",
+                        'context': context,
+                        'temperature': temperature,
                     })
                     context['api_response'] = response
-#     openai.error.RateLimitError: The server had an error while processing your request. Sorry about that!
-#             openai.error.ServiceUnavailableError: The server is overloaded or not ready yet.
+
+#   -  openai.error.RateLimitError: The server had an error while processing your request. Sorry about that!
+#   -  openai.error.ServiceUnavailableError: The server is overloaded or not ready yet.
+
             except openai.error.RateLimitError:
                 context['api_response'] = 'Too Many Requests. Wait!'
 
             context['form'] = self.form
             context['user_question'] = question
             return JsonResponse({'api_response': context['api_response'], 'user_question': context['user_question']})
-
+            # return self.render_to_response(context)
 
         return super().post(request, *args, **kwargs)
-
-def error_401(request):
-    return render(request, 'ask_chat/../user/templates/user/401.html')

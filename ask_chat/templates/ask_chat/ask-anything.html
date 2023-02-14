@@ -1,7 +1,8 @@
 {% load static %}
 <!DOCTYPE html><!--  This site was created in Webflow. https://www.webflow.com  -->
 <!--  Last Published: Wed Feb 01 2023 08:16:07 GMT+0000 (Coordinated Universal Time)  -->
-    <html data-wf-page="63cb76e2d7632eb7e133dd37" data-wf-site="63c71f3c4e03650f2016f4d7" lang="en">
+<html data-wf-page="63cb76e2d7632eb7e133dd37" data-wf-site="63c71f3c4e03650f2016f4d7" lang="en">
+<head>
     <meta charset="utf-8">
     <title>AskAaron.app your AI-powered Lawyer | Lawsity</title>
     <meta content="AskAaron.app is your AI-powered Lawyer developed by Lawsity, capable of generating human-like answers." name="description"/>
@@ -76,9 +77,6 @@
     <div class="container-4 w-container">
       <nav role="navigation" class="nav-menu w-nav-menu">
 
-{#        <a href="index.html" aria-current="page" class="nav-link w-nav-link w--current">Home</a>#}
-{#        <a href="#" class="nav-link w-nav-link">About</a>#}
-
         <a href="{% url 'user:logout' %}" class="nav-link w-nav-link">Log Out</a>
 
       </nav>
@@ -95,24 +93,26 @@
       <div class="questiondiv">
         <div class="rich-text-block w-richtext">
             <p id="user_question"></p>
-{#            {{ user_question|default_if_none:""|capfirst }}#}
-{#          <p>What is mesothelioma?</p>#}
+            {{ user_question|default_if_none:""|capfirst }}
+            <div style="display: none;">
+                {{ form.answer }}
+            </div>
         </div>
       </div>
       <div class="responsediv">
-        <div class="rich-text-block w-richtext" id="api_response">
+        <div class="rich-text-block w-richtext">
             <p id="api_response"></p>
-{#            {{ api_response|default_if_none:""|linebreaks }}#}
+            {{ api_response|default_if_none:""|linebreaks }}
         </div>
       </div>
     </div>
   </div>
   <div class="section wf-section">
-      {#          Loader -----------------------------------------------  #}
+{#      Loader -----------------------------------------------#}
         <div class="loader">
             <div class="loader_inner"></div>
         </div>
-{#          ------------------------------------------------------- #}
+{#          -------------------------------------------------------#}
     <div class="container w-container">
       <div class="form-block w-form">
         <form action="{% url 'ask_chat:ask_anything' %}" id="email-form" name="email-form" data-name="Email Form" method="post" class="form-2">
@@ -163,7 +163,7 @@
             data: form_data,
             success: function(response) {
                 console.log(response);
-                {#var encodedResponse = response.api_response.replace(/\r\n/g, '\\r\\n').replace(/\n/g, '\n');#}
+                var encodedResponse = response.api_response.replace(/\r\n/g, '\\r\\n').replace(/\n/g, '\n');
                 var encodedResponse = response.api_response.replace(/\n/g, '<br>');
                 $("#api_response").html(encodedResponse);
                 $("#user_question").html(response.user_question);
@@ -179,3 +179,103 @@
   </script>
 </body>
 </html>
+
+{#{% extends 'ask_chat/exemple.html' %}#}
+{#{% load static %}#}
+{##}
+{#{% block css %}#}
+{#    <link href="{% static 'css/loader.css' %}" rel="stylesheet" type="text/css">#}
+{#{% endblock %}#}
+{##}
+{#{% block header %}#}
+{#    {% include 'ask_chat/include/navBar.html' %}#}
+{#{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="section-answer wf-section">#}
+{#    <div class="container w-container">#}
+{#      <div class="questiondiv">#}
+{#        <div class="rich-text-block w-richtext">#}
+{#            <p id="user_question"></p>#}
+{#            {{ user_question|default_if_none:""|capfirst }}#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="responsediv">#}
+{#        <div class="rich-text-block w-richtext" id="api_response">#}
+{#            <p id="api_response"></p>#}
+{#            {{ api_response|default_if_none:""|linebreaks }}#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#  <div class="section wf-section">#}
+{#      Loader -----------------------------------------------#}
+{#        <div class="loader">#}
+{#            <div class="loader_inner"></div>#}
+{#        </div>#}
+{#      -------------------------------------------------------#}
+{#    <div class="container w-container">#}
+{#      <div class="form-block w-form">#}
+{#        <form action="{% url 'ask_chat:ask_anything' %}" id="email-form" name="email-form" data-name="Email Form" method="post" class="form-2">#}
+{#            {% csrf_token %}#}
+{#          <div class="w-layout-grid grid-5">#}
+{#                {{ form.temperature }}#}
+{#              {{ form.context }}#}
+{#          </div>#}
+{#          <div class="w-layout-grid grid-2">#}
+{#              {{ form.question }}#}
+{#              <input type="submit" value="Ask" data-wait="Please wait..." id="w-node-_67e93785-6278-b925-a661-4f92cae5470e-9d78feda" class="submit-button-3 w-button">#}
+{#            <div id="w-node-_6631eeeb-ea6e-dcc6-d053-3ab58117e430-9d78feda" class="div-block-3">#}
+{#              <ul role="list" class="list">#}
+{#                <li class="list-item"><span class="text-span">Higher temperature</span> will produce more varied and unpredictable results.<br></li>#}
+{#                <li class="list-item"><span class="text-span-2">Lower temperature</span> will produce more conservative and predictable results.<br></li>#}
+{#                <li class="list-item"><span class="text-span-3">Context</span>: Remember or not previous answer</li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </div>#}
+{#        </form>#}
+{#        <div class="w-form-done">#}
+{#          <div>Thank you! Your submission has been received!</div>#}
+{#        </div>#}
+{#        <div class="w-form-fail">#}
+{#          <div>Oops! Something went wrong while submitting the form.</div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="div-block">#}
+{#        <div class="text-footer">Copyright © 2023 <span class="text-span-4">AskAaron.app </span>/Lawsity LLC | All Right Reserved.</div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#{% endblock %}#}
+{##}
+{#{% block script %}#}
+{#    <script>#}
+{#      $(document).ready(function() {#}
+{#    $("#email-form").submit(function(event) {#}
+{#        event.preventDefault();#}
+{##}
+{#        $(".loader").show();#}
+{#        var form_data = $(this).serialize();#}
+{##}
+{##}
+{#        $.ajax({#}
+{#            url: "{% url 'ask_chat:ask_anything' %}",#}
+{#            type: 'post',#}
+{#            data: form_data,#}
+{#            success: function(response) {#}
+{#                console.log(response);#}
+{#                var encodedResponse = response.api_response.replace(/\r\n/g, '\\r\\n').replace(/\n/g, '\n');#}
+{#                var encodedResponse = response.api_response.replace(/\n/g, '<br>');#}
+{#                $("#api_response").html(encodedResponse);#}
+{#                $("#user_question").html(response.user_question);#}
+{#                $(".loader").hide();#}
+{#            },#}
+{#            error: function(xhr, status, error) {#}
+{#                console.log(xhr.responseText);#}
+{#                $(".loader").hide();#}
+{#            }#}
+{#        });#}
+{#    });#}
+{#});#}
+{#  </script>#}
+{#{% endblock %}#}

@@ -26,8 +26,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-# ALLOWED_HOSTS = [config('PRIMARY_DOMAIN'), config('SECONDARY_DOMAIN')]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [config('PRIMARY_DOMAIN'), config('SECONDARY_DOMAIN')]
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 

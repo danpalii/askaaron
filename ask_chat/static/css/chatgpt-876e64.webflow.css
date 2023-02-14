@@ -447,9 +447,9 @@ p {
 .heading-3 {
   font-family: AktivGrotesk, sans-serif;
   color: #dadada;
-  font-size: 30px;
-  line-height: 38px;
-  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -660,9 +660,9 @@ p {
 }
 
 .rich-text-block {
-  font-family: AktivGrotesk, sans-serif;
-  font-size: 18px;
-  line-height: 26px;
+  font-family: Aktivgrotesk, sans-serif;
+  font-size: 1.25rem;
+  line-height: 2rem;
   font-weight: 300;
 }
 
